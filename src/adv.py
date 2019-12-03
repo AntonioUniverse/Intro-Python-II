@@ -1,4 +1,5 @@
 from room import Room
+from player import Player
 
 # Declare all the rooms
 
@@ -38,8 +39,63 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+Darren = Player('Darren', room['outside'])
+
 
 # Write a loop that:
+quit = False 
+
+while not quit:
+    current_room = Darren.current_room
+    print(f"{current_room}")
+    command = input('What direction are you going? N, S, E, W?:')
+    command = command.lower()
+    if command == 'q':
+        quit = True
+
+   # Room moves
+    if current_room == room['outside'] and command != "n":
+       print('No Room in that direction!')
+
+    if current_room == room['foyer'] and command == "w":
+       print('No Room in that direction!')
+    
+    if current_room == room['overlook'] and command == "s":
+       print('No Room in that direction!')
+
+    if current_room == room['narrow'] and command == "s" or "e":
+       print('No Room in that direction!')
+
+    if current_room == room['treasure'] and command != "s":
+       print('No Room in that direction!')
+
+   #Room moves
+    if current_room == room['outside'] and command == "n":
+        Darren.current_room = room['foyer']
+
+    if current_room == room['foyer'] and command == "s":
+        Darren.current_room = room['outside']   
+    
+    if current_room == room['foyer'] and command == "n":
+        Darren.current_room = room['overlook']   
+        # print(f"{current_room}")
+
+    if current_room == room['foyer'] and command == "e":
+        Darren.current_room = room['narrow']     
+    
+    if current_room == room['overlook'] and command == "s":
+        Darren.current_room = room['foyer']
+
+    if current_room == room['narrow'] and command == "w":
+        Darren.current_room = room['foyer']
+    
+    if current_room == room['narrow'] and command == "n":
+        Darren.current_room = room['treasure']
+
+    if current_room == room['treasure'] and command == "s":
+        Darren.current_room = room['narrow']
+
+
 #
 # * Prints the current room name
 # * Prints the current description (the textwrap module might be useful here).
@@ -49,3 +105,5 @@ room['treasure'].s_to = room['narrow']
 # Print an error message if the movement isn't allowed.
 #
 # If the user enters "q", quit the game.
+
+print('im the curren room',Darren.current_room)
